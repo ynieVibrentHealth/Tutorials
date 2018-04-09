@@ -19,6 +19,6 @@ BasicProp.propTypes = {
 
 BasicProp.defaultProps = {
     txt:"This is the default text"
-}
+};
 
 export default BasicProp
