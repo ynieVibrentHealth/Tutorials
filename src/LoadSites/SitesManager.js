@@ -22,7 +22,21 @@ class SitesManager {
     }
 
     getAvailableAppointments(siteId, numberOfDays, callback) {
-        
+        let appointmentTimesURL = PMINetworkConfig.baseURL + PMINetworkConfig.donationSites.appointmentTimes+
+            "?siteId="+siteId+
+            "&numberOfDays="+numberOfDays;
+        fetch(appointmentTimesURL, {
+            method:'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'x-auth-token':UserManager.token
+            }
+        })
+            .then((response) => response.json())
+            .then((responseJSON) => {
+                callback(responseJSON);
+            });
     }
 }
 

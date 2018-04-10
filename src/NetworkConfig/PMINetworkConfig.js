@@ -5,6 +5,7 @@ export default class PMINetworkConfig {
     };
 
     static donationSites = {
-        search: "api/donationSite/search"
+        search: "api/donationSite/search",
+        appointmentTimes: "api/schedule/availableTimes"
     };
 }
