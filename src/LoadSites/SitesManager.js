@@ -3,7 +3,7 @@ import UserManager from '../UserManager/UserManager'
 
 class SitesManager {
     getSites(callback) {
-        let sitesURL = PMINetworkConfig.baseURL + PMINetworkConfig.donationSites.search
+        let sitesURL = PMINetworkConfig.baseURL + PMINetworkConfig.donationSites.search;
         fetch(sitesURL, {
             method:'GET',
             headers: {
@@ -19,6 +19,10 @@ class SitesManager {
             .catch((error)=> {
                 console.log(error)
             })
+    }
+
+    getAvailableAppointments(siteId, numberOfDays, callback) {
+        
     }
 }
 
