@@ -6,17 +6,14 @@ export default class SitesPage extends React.Component {
 
     constructor(props) {
         super(props);
-        UserManager.loadUser("aa2070@aa.com", "Password123", ((token) => {
-            console.log("finished with token: "+token);
-            SitesManager.getSites((responseJSON) => {
-                let rawSites = [];
-                for (let site of responseJSON.sites) {
-                    rawSites.push(site)
-                }
-                let siteIds = this.mapSiteIds(rawSites);
-                this.getDetailsForSites(siteIds);
-            })
-        }));
+        SitesManager.getSites((responseJSON) => {
+            let rawSites = [];
+            for (let site of responseJSON.sites) {
+                rawSites.push(site)
+            }
+            let siteIds = this.mapSiteIds(rawSites);
+            this.getDetailsForSites(siteIds);
+        });
         this.state = {
             loadedSites:false,
             sitesWithData:[]
@@ -35,6 +32,7 @@ export default class SitesPage extends React.Component {
 
     getDetailsForSites(siteIds) {
         for (let site of siteIds) {
+            console.log(site.id);
             SitesManager.getAvailableAppointments(site.id, 60, ((responseJSON) => {
                 this.setLoaded();
                 if (responseJSON.availableTimes.count > 0) {
@@ -66,6 +64,7 @@ export default class SitesPage extends React.Component {
                 <h1>Loading site information</h1>
             )
         } else {
+
             return (
                 <h1>Loading user</h1>
             )

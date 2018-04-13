@@ -24,13 +24,28 @@ class UserManager {
             'Content-Type': 'application/json',
         }
     })
-        .then((response) => response.json())
+        .then((response) => {
+            if (response.status >= 200 && response.status <= 305){
+                return response.json()
+            }  else if (response.status >= 400 && response.status < 500) {
+                throw "Please try again, credentials are not correct";
+            } else {
+                throw "Internal server error"
+            }
+        })
         .then((responseJSON) => {
+            console.log("status code: "+responseJSON.status);
             this.token = responseJSON.token;
-            callback(responseJSON.token)
+            callback({
+               "json":responseJSON,
+               "error":null
+            });
         })
         .catch((error)=> {
-            console.error(error);
+            callback({
+                "json":null,
+                "error":error
+            });
         })
 }
     get type() {
