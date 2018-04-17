@@ -14,8 +14,9 @@ export default class ScheduleAvailableTimeApp extends React.Component {
         return (
             <Router>
                 <div>
-                    <Route path={"/"} component={LoginPage}/>
+                    <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/getTimes"} component={SitesPage}/>
+                    <Redirect from={"/"} to={'/login'}/>
                 </div>
             </Router>
         )

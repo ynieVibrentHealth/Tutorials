@@ -12,12 +12,27 @@ class SitesManager {
                 'x-auth-token':UserManager.token
             }
         })
-            .then((response) => response.json())
+            .then((response) => {
+                console.log(response);
+                if (response.status >= 200 && response.status <= 305){
+                    return response.json()
+                }  else if (response.status >= 400 && response.status < 500) {
+                    throw "Bad request";
+                } else {
+                    throw "Internal server error"
+                }
+            })
             .then((responseJSON) => {
-                callback(responseJSON)
+                callback({
+                    "json":responseJSON,
+                    "error":null
+                })
             })
             .catch((error)=> {
-                console.log(error)
+                callback({
+                    "json":null,
+                    "error":error
+                });
             })
     }
 
@@ -33,10 +48,27 @@ class SitesManager {
                 'x-auth-token':UserManager.token
             }
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 305){
+                    return response.json()
+                }  else if (response.status >= 400 && response.status < 500) {
+                    throw "Bad request";
+                } else {
+                    throw "Internal server error"
+                }
+            })
             .then((responseJSON) => {
-                callback(responseJSON);
-            });
+                callback({
+                    "json":responseJSON,
+                    "error":null
+                })
+            })
+            .catch((error)=> {
+                callback({
+                    "json":null,
+                    "error":error
+                });
+            })
     }
 }
 

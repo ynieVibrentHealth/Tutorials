@@ -4,12 +4,6 @@ import {
 } from "react-router-dom";
 import UserManager from '../UserManager/UserManager'
 
-const Home = () => (
-    <h1>
-        Home
-    </h1>
-);
-
 const LoginTextField = ({labelText, onEdit}) => (
     <label>{"\n"}
         {labelText}
@@ -67,7 +61,6 @@ export default class LoginPage extends React.Component {
                     errorMessage:response.error
                 })
             } else if (response.json != null) {
-                console.log("token: "+response.json.token);
                 history.push('/getTimes')
             }
         }));
